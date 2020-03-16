@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Covid19App</string>
+    <string name="cases_title">Cases</string>
+    <string name="recovers_title">Recovers</string>
+    <string name="deaths_title">Deaths</string>
+    <string name="critical_title">Critical</string>
+    <string name="today_cases_title">Today Cases</string>
+    <string name="today_deaths_title">Today Deaths</string>
+    <string name="created_by">Created By David Martins</string>
+</resources>

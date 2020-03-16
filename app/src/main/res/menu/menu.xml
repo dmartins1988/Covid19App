@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/global_item"
+        android:icon="@drawable/ic_global_white_24dp"
+        android:title="Global"/>
+
+    <item
+        android:id="@+id/countries_item"
+        android:icon="@drawable/ic_place_white_24dp"
+        android:title="Countries" />
+
+    <item
+        android:id="@+id/preferences_item"
+        android:icon="@drawable/ic_settings_white_24dp"
+        android:title="Preferences"/>
+
+</menu>
