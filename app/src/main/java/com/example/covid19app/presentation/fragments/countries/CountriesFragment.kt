@@ -28,8 +28,8 @@ class CountriesFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        refreshLayout()
         configureRecyclerView()
+        refreshLayout()
         fetchData()
     }
 
@@ -57,8 +57,13 @@ class CountriesFragment : BaseFragment() {
                 }
                 is Result.Success -> {
                     swipe_to_refresh.isRefreshing = false
-                    recycler_view.visible()
-                    countriesAdapter.submitList(response.data)
+                    if (response.data.isNotEmpty()) {
+                        recycler_view.visible()
+                        countriesAdapter.submitList(response.data)
+                    } else {
+                        recycler_view.gone()
+                        empty_tv.visible()
+                    }
                 }
                 is Result.Error -> {
                     swipe_to_refresh.isRefreshing = false
