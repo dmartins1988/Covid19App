@@ -14,7 +14,7 @@ val NetworkNodule = module {
 
     single { Retrofit.Builder()
         .client(get())
-        .baseUrl("https://corona.lmao.ninja/")
+        .baseUrl("https://corona.lmao.ninja/v2/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
