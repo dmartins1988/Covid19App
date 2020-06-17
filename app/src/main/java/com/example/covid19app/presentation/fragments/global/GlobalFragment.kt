@@ -3,6 +3,7 @@ package com.example.covid19app.presentation.fragments.global
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.covid19app.R
 import com.example.covid19app.data.utils.Result
 import com.example.covid19app.extensions.gone
@@ -12,7 +13,7 @@ import com.example.covid19app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.global_fragment.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class GlobalFragment : BaseFragment() {
+class GlobalFragment : BaseFragment(){
 
     private val viewModel: GlobalViewModel by viewModel()
 
@@ -21,18 +22,19 @@ class GlobalFragment : BaseFragment() {
             GlobalFragment()
     }
 
-
     override fun layoutId(): Int = R.layout.global_fragment
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeGlobalCases()
+    }
 
+    override fun onResume() {
+        super.onResume()
         observeGlobalCases()
     }
 
     private fun observeGlobalCases() {
-
         viewModel.allCases.observe(viewLifecycleOwner, Observer { response ->
             when(response) {
                 is Result.Loading -> {

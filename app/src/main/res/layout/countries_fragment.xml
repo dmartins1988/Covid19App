@@ -8,20 +8,16 @@
     android:background="@color/colorBackground"
     tools:context=".presentation.fragments.countries.CountriesFragment">
 
-    <TextView
-        android:id="@+id/empty_tv"
-        android:layout_width="wrap_content"
+    <com.google.android.material.progressindicator.ProgressIndicator
+        android:id="@+id/progressIndicator"
+        style="@style/Widget.MaterialComponents.ProgressIndicator.Linear.Indeterminate"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:indicatorType="linear"
+        app:trackColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="No Results"
-        tools:text="No Results"
-        android:textColor="@color/colorPrimaryText"
-        android:visibility="gone"
-        android:textSize="16sp"
-        tools:visibility="visible"/>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_to_refresh"
@@ -33,7 +29,8 @@
             android:layout_width="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_height="match_parent"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical"
+            tools:listitem="@layout/country_item_card_view"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

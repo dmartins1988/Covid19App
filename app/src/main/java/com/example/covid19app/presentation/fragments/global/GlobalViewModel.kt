@@ -15,7 +15,7 @@ class GlobalViewModel(
 
     private val _allCases = covidRepository
         .getAllCases()
-        .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
+        .asLiveData(Dispatchers.IO)
 
     val allCases : LiveData<Result<ResponseAll>> get() = _allCases
 

@@ -3,6 +3,7 @@ package com.example.covid19app.presentation.fragments.countries
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.covid19app.R
 import com.example.covid19app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.countries_fragment.*
@@ -11,7 +12,7 @@ import com.example.covid19app.data.utils.Result
 import com.example.covid19app.extensions.gone
 import com.example.covid19app.extensions.visible
 
-class CountriesFragment : BaseFragment() {
+class CountriesFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private val viewModel: CountriesViewModel by viewModel()
 
@@ -21,7 +22,6 @@ class CountriesFragment : BaseFragment() {
         fun newInstance() =
             CountriesFragment()
     }
-
 
     override fun layoutId(): Int = R.layout.countries_fragment
 
@@ -34,10 +34,8 @@ class CountriesFragment : BaseFragment() {
     }
 
     private fun refreshLayout() {
-        swipe_to_refresh.setOnRefreshListener {
-            fetchData()
-        }
-
+        swipe_to_refresh.setOnRefreshListener(this)
+        fetchData()
     }
 
     private fun configureRecyclerView() {
@@ -52,26 +50,29 @@ class CountriesFragment : BaseFragment() {
         viewModel.countriesCases.observe(viewLifecycleOwner, Observer { response ->
             when (response) {
                 is Result.Loading -> {
-                    swipe_to_refresh.isRefreshing = true
+                    progressIndicator.show()
                     recycler_view.gone()
                 }
                 is Result.Success -> {
-                    swipe_to_refresh.isRefreshing = false
+                    progressIndicator.hide()
                     if (response.data.isNotEmpty()) {
                         recycler_view.visible()
                         countriesAdapter.submitList(response.data)
                     } else {
                         recycler_view.gone()
-                        empty_tv.visible()
                     }
                 }
                 is Result.Error -> {
-                    swipe_to_refresh.isRefreshing = false
+                    progressIndicator.hide()
                     recycler_view.gone()
-                    empty_tv.visible()
                 }
             }
         })
+    }
+
+    override fun onRefresh() {
+        swipe_to_refresh.isRefreshing = false
+        fetchData()
     }
 
 }

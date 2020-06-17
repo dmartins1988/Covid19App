@@ -16,7 +16,7 @@ class CountriesViewModel(
 
     private val _countriesCases = covidRepository
         .getCountriesCases()
-        .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
+        .asLiveData(Dispatchers.IO)
 
     val countriesCases : LiveData<Result<List<ResponseCountries>>> get() = _countriesCases
 }
